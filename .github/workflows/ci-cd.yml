@@ -38,6 +38,6 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f ./Deployment.yaml
-          kubectl apply -f ./Service.yaml
+          kubectl apply -f ./Deployment.yml
+          kubectl apply -f ./Service.yml
           kubectl rollout restart deployment/php-app-deployment
