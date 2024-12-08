@@ -10,3 +10,16 @@ spec:
       port: 80
       targetPort: 80
   type: NodePort 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  selector:
+    app: mysql-db 
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+  type: ClusterIP
