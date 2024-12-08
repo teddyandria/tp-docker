@@ -21,9 +21,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
       - name: Build Docker image for specific platform
         run: |
-          docker build --platform linux/amd64 -t teddyandria/php_app:1.0.0
+          docker buildx build --platform linux/amd64 -t teddyandria/php-app:1.0.0 .
 
       - name: Push Docker image to DockerHub
         run: |
