@@ -1,26 +1,33 @@
-version: '3.7'
-
 services:
   app:
-    build:
-      context: ./www
-      dockerfile: Dockerfile
+    platform: linux/arm64
+    build: ./www
     container_name: php_app
-    image: php_app:${APP_VERSION} 
+    image: teddyandria/php_app:${APP_VERSION}
     ports:
       - "${WEB_PORT}:80"
     volumes:
       - ./www:/var/www/html 
-    networks:
-      - app_network
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=${DB_PORT}
+
+    depends_on:
+      - db
 
   db:
-    build:
-      context: ./database
-      dockerfile: Dockerfile
+    platform: linux/amd64
+    build: ./database
     container_name: mysql_db
-    image: mysql:5.7
-    ports:
-      - "${DB_PORT}:3306"
+    image: teddyandria/mysql:5.7.12
+
     environment:
-      MYSQL_ROOT_PASSWORD
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
