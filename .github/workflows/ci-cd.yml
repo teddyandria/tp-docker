@@ -23,7 +23,7 @@ jobs:
 
       - name: Build Docker image for specific platform
         run: |
-          docker build --platform linux/amd64 -t teddyandria/php_app:1.0.0 .
+          docker build --platform linux/amd64 -t teddyandria/php_app:1.0.0
 
       - name: Push Docker image to DockerHub
         run: |
